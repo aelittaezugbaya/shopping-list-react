@@ -4,11 +4,14 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const index = require('./routes/routes_index');
 const api = require('./routes/routes_api');
 
 const app = express();
+
+mongoose.connect('mongodb://localhost/shoppingList');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -19,7 +22,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-// app.use('/api',api);
+app.use('/api', api);
 
 
 // catch 404 and forward to error handler
