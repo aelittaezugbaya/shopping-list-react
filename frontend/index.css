@@ -1,0 +1,15 @@
+.headerC{
+    color: whitesmoke;
+}
+
+.header-center {
+    justify-content: center;
+}
+
+.header-center ::before {
+    background: none;
+}
+.right{
+    text-align: right;
+}
+
