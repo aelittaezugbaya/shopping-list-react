@@ -9,7 +9,7 @@ export default class Item extends React.Component{
     return(
       <ListGroupItem>
         <div className="row-fluid">
-          <div className="col-sm-2">
+          <div className="col-sm-2 col-xs-1">
             <h5>{this.props.children}</h5>
           </div>
           <div className="text-right">

@@ -11,7 +11,7 @@ export default class Input extends React.Component{
         <form>
           <FormGroup>
             <div className="row-fluid">
-              <div className="col-sm-11 col-xs-8">
+              <div className="col-md-11 col-sm-10 col-xs-8">
                 <FormControl type="text" placeholder="Enter item and press button add"/>
               </div>
               <div className="text-right">
