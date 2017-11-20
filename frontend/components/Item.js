@@ -13,10 +13,7 @@ export default class Item extends React.Component{
             <h5>{this.props.children}</h5>
           </div>
           <div className="text-right">
-            <ButtonGroup >
-              <Button className='edit' bsStyle="warning">Edit</Button>
-              <Button bsStyle="danger">Delete</Button>
-            </ButtonGroup>
+            <Button bsStyle="success">Done</Button>
           </div>
         </div>
       </ListGroupItem>

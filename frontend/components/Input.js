@@ -15,7 +15,7 @@ export default class Input extends React.Component{
                 <FormControl type="text" placeholder="Enter item and press button add"/>
               </div>
               <div className="text-right">
-                <Button bsStyle='success' type="submit">Submit</Button>
+                <Button bsStyle='primary' type="submit">Submit</Button>
               </div>
             </div>
           </FormGroup>
