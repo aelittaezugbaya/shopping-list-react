@@ -3,6 +3,7 @@ var router = express.Router();
 const Mongoose = require('mongoose');
 const Models = require('../mongooseModel')
 
+//Get list of all items in the list
 router.get('/items',function(req, res, next){
   new Promise((resolve,reject) => {
     Models.Items.find({},function(err,items){
@@ -17,6 +18,58 @@ router.get('/items',function(req, res, next){
     console.log("Server error: " + reason)
     res.status(500);
     res.send(reason);
+  })
+});
+
+//add new item to the list
+router.post('/items',function(req,res,next){
+  new Promise((resolve, reject)=>{
+    let newItem = Models.Items({
+      name:req.body.name,
+      done:false
+    });
+    newItem.save(function(err,newItem){
+      if(err) {
+        return console.log(err);
+      }
+      return resolve(newItem)
+    })
+  }).then((newItem)=>{
+    res.send('saved: '+newItem.name)
+  }).catch(function(reason){
+    console.log("Server error: " + reason);
+    res.status(500);
+    res.status(reason);
+  })
+
+})
+
+// changed status of done int the item
+router.put('/items/:id', function(req,res,next){
+  Models.Items.find({_id:req.params.id},(err,item)=>{
+    if(err)
+      return ("Error finding Item with ID " + req.params.id + ".");
+    return item;
+  }).then((item)=> {
+    Models.Items.update({
+        _id: req.params.id
+      },
+      {
+        done: !item.done,
+      },
+      (err, item)=> {
+        if (err) throw err;
+
+        res.send(item);
+      })
+  })
+});
+
+router.delete('/delete/:id', function(req,res,next){
+  console.log('deleting item', req.params.id);
+  Models.Items.remove({_id:req.params.id}, (err)=>{
+    if(err) throw err;
+    res.send('deleted')
   })
 })
 

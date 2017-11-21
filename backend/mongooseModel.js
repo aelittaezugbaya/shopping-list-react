@@ -5,4 +5,4 @@ let itemSchema= new Mongoose.Schema({
   done:Boolean
 });
 
-module.exports.Items = MONGOOSE.model('Items', itemSchema, 'Item');
+module.exports.Items = Mongoose.model('Items', itemSchema, 'Items');
