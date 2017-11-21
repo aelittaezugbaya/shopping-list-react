@@ -13,7 +13,7 @@ router.get('/items',function(req, res, next){
       return resolve(items);
     })
   }).then(items=>{
-    res.send(items);
+    res.json(items);
   }).catch(reason=>{
     console.log("Server error: " + reason)
     res.status(500);
@@ -49,27 +49,27 @@ router.put('/items/:id', function(req,res,next){
   Models.Items.find({_id:req.params.id},(err,item)=>{
     if(err)
       return ("Error finding Item with ID " + req.params.id + ".");
+    console.log(item)
     return item;
   }).then((item)=> {
     Models.Items.update({
         _id: req.params.id
       },
       {
-        done: !item.done,
+        done: !(item[0].done),
       },
-      (err, item)=> {
+      (err, item)=>{
         if (err) throw err;
-
         res.send(item);
       })
   })
 });
-
+// delete items from the list
 router.delete('/delete/:id', function(req,res,next){
   console.log('deleting item', req.params.id);
-  Models.Items.remove({_id:req.params.id}, (err)=>{
+  Models.Items.remove({_id:req.params.id}, (err,data)=>{
     if(err) throw err;
-    res.send('deleted')
+    res.send(data)
   })
 })
 

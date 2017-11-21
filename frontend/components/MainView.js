@@ -11,43 +11,38 @@ const square = { width: 610, height: 60 }
 export default class MainView extends React.Component {
   constructor(props){
     super(props);
-    this.onSubmit=this.onSubmit.bind(this);
     this.state={
       food:['milk','sugar'],
     }
   }
   componentWillMount(){
-
+    this.getItems();
   }
-  onSubmit(ev){
-    ev.preventDefault();
-    let ar = this.state.food;
-    ar.push(this.input.value);
-    this.setState({
-      food: ar
+
+  getItems(){
+    window.fetch('/api/items/',{
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
     })
-
-    console.log(this.input.value)
+      .then(res=>res.json())
+      .then(data=>{
+      console.log(data);
+      this.setState({
+        food:data
+      })
+    })
   }
-  
+
+
   render(){
-    const items = this.state.food.map(food => <Item key={food}>{food}</Item>)
+    const items = this.state.food.map(food => <Item item={food} key={food._id}>{food.name}</Item>)
    return(
      <div className="container">
        <Header/>
        <ListGroup>
-         <ListGroupItem>
-           <form onSubmit={this.onSubmit}>
-             <div className="row-fluid">
-               <div className="col-md-11 col-sm-10 col-xs-8">
-                 <input ref={ref => this.input = ref} type="text" className="form-control" placeholder="Enter food name and press add"/>
-               </div>
-               <div className="text-right">
-                 <Button bsStyle='primary' type="submit">Submit</Button>
-               </div>
-             </div>
-           </form>
-         </ListGroupItem>
+          <Input/>
          {items}
        </ListGroup>
      </div>
