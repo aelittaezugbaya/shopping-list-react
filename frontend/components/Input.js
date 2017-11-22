@@ -23,20 +23,18 @@ export default class Input extends React.Component{
   }
   onSubmit(ev){
     ev.preventDefault();
-    const { endpoint } = this.state;
-    const socket = socketIOClient(endpoint);
-    socket.emit("new item", this.input.value );
     // ev.preventDefault();
     let name = 'name='+encodeURIComponent(this.input.value)
-    console.log(this.input.value)
     window.fetch('/api/items/',{
       method: 'POST',
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
       },
       body:name
-    }).then(res=>res.json())
-      .then(data=>console.log(data));
+    }).then(res=>res);
+    const { endpoint } = this.state;
+    const socket = socketIOClient(endpoint);
+    socket.emit("new item", this.input.value );
     this.form.reset()
   }
 

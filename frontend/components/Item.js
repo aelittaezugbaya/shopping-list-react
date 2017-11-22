@@ -10,8 +10,8 @@ export default class Item extends React.Component{
     super(props);
     this.state={
       response: false,
-      buttons:[<Button bsStyle="success" onClick={()=>this.onClickDone()}><i className="fa fa-check"/></Button>,
-        <Button bsStyle="danger" onClick={()=>this.onClickDelete()}><i className="fa fa-times"/></Button> ],
+      buttons:[<Button bsStyle="success" key="done" onClick={()=>this.onClickDone()}><i className="fa fa-check"/></Button>,
+        <Button bsStyle="danger" key="delete" onClick={()=>this.onClickDelete()}><i className="fa fa-times"/></Button> ],
       text:[this.props.children,<del>{this.props.children}</del>],
       endpoint: "http://127.0.0.1:8000",
     }
@@ -24,7 +24,7 @@ export default class Item extends React.Component{
     })
   }
   onClickDone(ev){
-    console.log(this.props.item._id)
+
     window.fetch(`/api/items/${this.props.item._id}`,{
       method: 'PUT',
       headers: {
@@ -33,7 +33,6 @@ export default class Item extends React.Component{
     })
       .then(res=>res.json())
       .then(data=>{
-        console.log(data)
         this.setState({
           index:1
         })
@@ -50,8 +49,7 @@ export default class Item extends React.Component{
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
       },
-    }).then(res=>res.json())
-      .then(data=>console.log(data))
+    })
   }
 
   render(){

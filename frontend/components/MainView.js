@@ -5,9 +5,6 @@ import Input from'./Input';
 import Header from './Header';
 import socketIOClient from "socket.io-client";
 
-const square = { width: 610, height: 60 }
-
-
 
 export default class MainView extends React.Component {
   constructor(props){
@@ -30,7 +27,6 @@ export default class MainView extends React.Component {
     });
     socket.on('update items',data=>{
       this.getItems();
-      console.log('delete:'+data);
     })
   }
 
@@ -43,7 +39,6 @@ export default class MainView extends React.Component {
     })
       .then(res=>res.json())
       .then(data=>{
-      console.log(data);
       this.setState({
         items:data
       })
@@ -52,10 +47,12 @@ export default class MainView extends React.Component {
 
 
   render(){
-    console.log(this.state.items);
-    let items=this.state.items.length>0 ? this.state.items.map(food => <Item item={food} key={food._id}>{food.name}</Item>) : '';
-    // const items = this.state.items.map(food => <Item item={food} key={food._id}>{food.name}</Item>);
-   return(
+
+    let items=this.state.items.length!=0 ? this.state.items.map(food => food._id ?
+      <Item item={food} key={food._id}>{food.name}</Item> : ''
+    ): '';
+
+    return(
      <div className="container">
        <Header/>
        <ListGroup>
@@ -63,6 +60,6 @@ export default class MainView extends React.Component {
          {items}
        </ListGroup>
      </div>
-   );
+    );
   }
 }
