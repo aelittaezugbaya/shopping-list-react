@@ -42021,7 +42021,7 @@ var Item = function (_React$Component) {
           { className: 'row-fluid' },
           _react2.default.createElement(
             'div',
-            { className: 'col-md-9 col-sm-2 col-xs-1' },
+            { className: 'col-md-9 col-sm-9 col-xs-9' },
             _react2.default.createElement(
               'h5',
               null,

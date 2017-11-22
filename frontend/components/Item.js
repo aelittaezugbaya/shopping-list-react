@@ -57,7 +57,7 @@ export default class Item extends React.Component{
     return(
       <ListGroupItem key={this.props.item._id}>
         <div className="row-fluid">
-          <div className="col-md-9 col-sm-2 col-xs-1">
+          <div className="col-md-9 col-sm-9 col-xs-9">
             <h5>{text}</h5>
           </div>
           <div className="text-right">
