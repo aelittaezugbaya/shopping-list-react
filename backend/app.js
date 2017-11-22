@@ -5,11 +5,17 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const axios = require("axios");
+const Models = require('./mongooseModel')
 
 const index = require('./routes/routes_index');
 const api = require('./routes/routes_api');
 
 const app = express();
+const http = require('http');
+const socketIo = require("socket.io");
+let connections=[];
+
 
 mongoose.connect('mongodb://localhost/shoppingList');
 
@@ -19,10 +25,32 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../build')));
+console.log(__dirname)
 
 app.use('/', index);
 app.use('/api', api);
+
+const server = http.createServer(app);
+const io = socketIo.listen(server);
+
+const port = 8000;
+server.listen(port);
+io.sockets.on('connection',(socket)=>{
+  connections.push(socket);
+  console.log('Connected: %s sockets connected', connections.length);
+
+  socket.on('disconnect',(data)=>{
+    connections.splice(connections.indexOf(socket),1);
+    console.log('Disconnected: %s sockets connected', connections.length)
+  })
+
+  socket.on('new item',data=>{
+    console.log('saved: '+data);
+    io.sockets.emit('get items',data);
+  })
+
+})
 
 
 // catch 404 and forward to error handler

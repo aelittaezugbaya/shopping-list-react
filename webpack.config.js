@@ -34,13 +34,8 @@ const commonConfig= {
         use: "babel-loader",
       },
       {
-        test: /\.(ttf|eot|woff|woff2)$/,
-        use: {
-          loader: "url-loader",
-          options: {
-            limit: 50000,
-          },
-        },
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        loader: 'file-loader',
       },
     ],
   }

@@ -9,17 +9,21 @@
     "backend": "node ./bin/www"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "body-parser": "~1.17.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "express": "^4.15.5",
+    "file-loader": "^1.1.5",
+    "font-awesome": "^4.7.0",
     "mongoose": "^4.13.4",
     "morgan": "~1.8.1",
     "react": "^16.1.1",
     "react-bootstrap": "^0.31.5",
     "react-dom": "^16.1.1",
     "semantic-ui-react": "^0.76.0",
-    "serve-favicon": "~2.4.2"
+    "serve-favicon": "~2.4.2",
+    "socket.io": "^2.0.4"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

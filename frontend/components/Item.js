@@ -8,8 +8,8 @@ export default class Item extends React.Component{
   constructor(props){
     super(props);
     this.state={
-      buttons:[<Button bsStyle="success" onClick={()=>this.onClickDone()}>Done</Button>,
-        <Button bsStyle="danger" onClick={()=>this.onClickDelete()}>Delete</Button> ],
+      buttons:[<Button bsStyle="success" onClick={()=>this.onClickDone()}><i className="fa fa-check"/></Button>,
+        <Button bsStyle="danger" onClick={()=>this.onClickDelete()}><i className="fa fa-times"/></Button> ],
       text:[this.props.children,<del>{this.props.children}</del>]
     }
 

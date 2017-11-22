@@ -2,17 +2,31 @@
  * Created by aelittaezugbaa on 20/11/2017.
  */
 import React from 'react';
-import {ListGroupItem ,FormGroup,FormControl,Button} from 'react-bootstrap'
+import {ListGroupItem ,FormGroup,FormControl,Button} from 'react-bootstrap';
+
+import socketIOClient from "socket.io-client";
 
 export default class Input extends React.Component{
 
   constructor(props){
     super(props);
     this.onSubmit=this.onSubmit.bind(this);
+    this.state = {
+      response: false,
+      endpoint: "http://127.0.0.1:8000",
+      items:[]
+    };
   }
+  componentDidMount(){
 
+
+  }
   onSubmit(ev){
     ev.preventDefault();
+    const { endpoint } = this.state;
+    const socket = socketIOClient(endpoint);
+    socket.emit("new item", this.input.value );
+    // ev.preventDefault();
     let name = 'name='+encodeURIComponent(this.input.value)
     console.log(this.input.value)
     window.fetch('/api/items/',{
@@ -27,14 +41,14 @@ export default class Input extends React.Component{
 
   render(){
     return(
-      <ListGroupItem>
+      <ListGroupItem key="input">
         <form onSubmit={this.onSubmit}>
           <div className="row-fluid">
             <div className="col-md-11 col-sm-10 col-xs-8">
               <input ref={ref => this.input = ref} type="text" className="form-control" placeholder="Enter food name and press add"/>
             </div>
             <div className="text-right">
-              <Button bsStyle='primary' type="submit">Add</Button>
+              <Button bsStyle='primary' type="submit"><i className="fa fa-plus"/></Button>
             </div>
           </div>
         </form>
