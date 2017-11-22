@@ -26,9 +26,12 @@ export default class MainView extends React.Component {
       let newAr = this.state.items;
       this.getItems();
       newAr.push(data)
-      this.setState({ items: newAr })
-      console.log(data)
+      this.setState({ items: newAr });
     });
+    socket.on('update items',data=>{
+      this.getItems();
+      console.log('delete:'+data);
+    })
   }
 
   getItems(){

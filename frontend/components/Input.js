@@ -37,12 +37,13 @@ export default class Input extends React.Component{
       body:name
     }).then(res=>res.json())
       .then(data=>console.log(data));
+    this.form.reset()
   }
 
   render(){
     return(
       <ListGroupItem key="input">
-        <form onSubmit={this.onSubmit}>
+        <form ref={ref => this.form = ref} onSubmit={this.onSubmit}>
           <div className="row-fluid">
             <div className="col-md-11 col-sm-10 col-xs-8">
               <input ref={ref => this.input = ref} type="text" className="form-control" placeholder="Enter food name and press add"/>

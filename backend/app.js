@@ -50,6 +50,11 @@ io.sockets.on('connection',(socket)=>{
     io.sockets.emit('get items',data);
   })
 
+  socket.on('delete item',(data)=>{
+    console.log('Deleted:'+data)
+    io.sockets.emit('update items',data)
+  })
+
 })
 
 
