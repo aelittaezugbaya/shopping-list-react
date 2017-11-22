@@ -12,8 +12,7 @@ export default class Item extends React.Component{
       response: false,
       buttons:[<Button bsStyle="success" key="done" onClick={()=>this.onClickDone()}><i className="fa fa-check"/></Button>,
         <Button bsStyle="danger" key="delete" onClick={()=>this.onClickDelete()}><i className="fa fa-times"/></Button> ],
-      text:[this.props.children,<del>{this.props.children}</del>],
-      endpoint: "http://127.0.0.1:8000",
+      text:[this.props.children,<del>{this.props.children}</del>]
     }
 
   }
@@ -41,7 +40,7 @@ export default class Item extends React.Component{
   }
 
   onClickDelete(){
-    const { endpoint } = this.state;
+    const endpoint = `${window.location.hostname}:8000`;
     const socket = socketIOClient(endpoint);
     socket.emit('delete item',this.props.item.name);
     window.fetch(`/api/delete/${this.props.item._id}`,{

@@ -11,13 +11,13 @@ export default class MainView extends React.Component {
     super(props);
     this.getItems=this.getItems.bind(this);
     this.state = {
-      endpoint: "http://127.0.0.1:8000",
       items:[]
     };
   }
   componentWillMount(){
+    console.log(window.location.hostname)
     this.getItems();
-    const { endpoint } = this.state;
+    const endpoint = `${window.location.hostname}:8000`;
     const socket = socketIOClient(endpoint);
     socket.on("get items", data => {
       let newAr = this.state.items;

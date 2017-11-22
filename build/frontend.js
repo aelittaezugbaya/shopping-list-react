@@ -29954,7 +29954,6 @@ var MainView = function (_React$Component) {
 
     _this.getItems = _this.getItems.bind(_this);
     _this.state = {
-      endpoint: "http://127.0.0.1:8000",
       items: []
     };
     return _this;
@@ -29965,9 +29964,9 @@ var MainView = function (_React$Component) {
     value: function componentWillMount() {
       var _this2 = this;
 
+      console.log(window.location.hostname);
       this.getItems();
-      var endpoint = this.state.endpoint;
-
+      var endpoint = window.location.hostname + ':8000';
       var socket = (0, _socket2.default)(endpoint);
       socket.on("get items", function (data) {
         var newAr = _this2.state.items;
@@ -41964,8 +41963,7 @@ var Item = function (_React$Component) {
         'del',
         null,
         _this.props.children
-      )],
-      endpoint: "http://127.0.0.1:8000"
+      )]
     };
 
     return _this;
@@ -42000,8 +41998,7 @@ var Item = function (_React$Component) {
   }, {
     key: 'onClickDelete',
     value: function onClickDelete() {
-      var endpoint = this.state.endpoint;
-
+      var endpoint = window.location.hostname + ':8000';
       var socket = (0, _socket2.default)(endpoint);
       socket.emit('delete item', this.props.item.name);
       window.fetch('/api/delete/' + this.props.item._id, {
@@ -45124,7 +45121,6 @@ var Input = function (_React$Component) {
     _this.onSubmit = _this.onSubmit.bind(_this);
     _this.state = {
       response: false,
-      endpoint: "http://127.0.0.1:8000",
       items: []
     };
     return _this;
@@ -45148,8 +45144,7 @@ var Input = function (_React$Component) {
       }).then(function (res) {
         return res;
       });
-      var endpoint = this.state.endpoint;
-
+      var endpoint = window.location.hostname + ':8000';
       var socket = (0, _socket2.default)(endpoint);
       socket.emit("new item", this.input.value);
       this.form.reset();
