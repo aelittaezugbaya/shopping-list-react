@@ -29999,8 +29999,10 @@ var MainView = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var items = this.state.items;
 
-      var items = this.state.items.length != 0 ? this.state.items.map(function (food) {
+
+      var elements = items.length != 0 ? this.state.items.map(function (food) {
         return food._id ? _react2.default.createElement(
           _Item2.default,
           { item: food, key: food._id },
@@ -30016,7 +30018,16 @@ var MainView = function (_React$Component) {
           _reactBootstrap.ListGroup,
           null,
           _react2.default.createElement(_Input2.default, null),
-          items
+          items.length == 0 ? _react2.default.createElement(
+            _reactBootstrap.Alert,
+            { bsStyle: 'info' },
+            _react2.default.createElement(
+              'strong',
+              null,
+              'Shopping list is empty!'
+            ),
+            ' Add something .'
+          ) : elements
         )
       );
     }
@@ -41961,7 +41972,7 @@ var Item = function (_React$Component) {
       )],
       text: [_this.props.children, _react2.default.createElement(
         'del',
-        null,
+        { className: 'red' },
         _this.props.children
       )]
     };
@@ -42011,11 +42022,17 @@ var Item = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var button = this.state.buttons[this.state.index];
-      var text = this.state.text[this.state.index];
+      var item = this.props.item;
+      var _state = this.state,
+          index = _state.index,
+          buttons = _state.buttons,
+          text = _state.text;
+
+      var button = buttons[index];
+      var texts = text[index];
       return _react2.default.createElement(
         _reactBootstrap.ListGroupItem,
-        { key: this.props.item._id },
+        { key: item._id },
         _react2.default.createElement(
           'div',
           { className: 'row-fluid' },
@@ -42025,7 +42042,7 @@ var Item = function (_React$Component) {
             _react2.default.createElement(
               'h5',
               null,
-              text
+              texts
             )
           ),
           _react2.default.createElement(
@@ -45290,7 +45307,7 @@ exports = module.exports = __webpack_require__(157)(undefined);
 
 
 // module
-exports.push([module.i, ".headerC{\n    color: whitesmoke;\n}\n\n.header-center {\n    justify-content: center;\n}\n\n.header-center ::before {\n    background: none;\n}\n.right{\n    text-align: right;\n}\n\n", ""]);
+exports.push([module.i, ".headerC{\n    color: whitesmoke;\n}\n\n.header-center {\n    justify-content: center;\n}\n\n.header-center ::before {\n    background: none;\n}\n.right{\n    text-align: right;\n}\n.red{\n    color:#d95450\n}\n", ""]);
 
 // exports
 

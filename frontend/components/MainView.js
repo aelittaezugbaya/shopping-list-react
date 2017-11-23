@@ -1,5 +1,5 @@
 import React from 'react';
-import {ListGroup,ListGroupItem ,FormGroup,FormControl,Button} from 'react-bootstrap';
+import {ListGroup,Alert} from 'react-bootstrap';
 import Item from './Item';
 import Input from'./Input';
 import Header from './Header';
@@ -47,8 +47,9 @@ export default class MainView extends React.Component {
 
 
   render(){
+    let {items}=this.state;
 
-    let items=this.state.items.length!=0 ? this.state.items.map(food => food._id ?
+    let elements=items.length!=0 ? this.state.items.map(food => food._id ?
       <Item item={food} key={food._id}>{food.name}</Item> : ''
     ): '';
 
@@ -57,8 +58,13 @@ export default class MainView extends React.Component {
        <Header/>
        <ListGroup>
           <Input/>
-         {items}
+         {items.length==0 ?
+           <Alert bsStyle="info">
+             <strong>Shopping list is empty!</strong> Add something .
+           </Alert>:
+           elements}
        </ListGroup>
+
      </div>
     );
   }
