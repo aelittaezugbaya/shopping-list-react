@@ -23,6 +23,9 @@ export default class Item extends React.Component{
     })
   }
   onClickDone(ev){
+    const endpoint = `${window.location.hostname}:8000`;
+    const socket = socketIOClient(endpoint);
+    socket.emit('change status',this.props.item);
 
     window.fetch(`/api/items/${this.props.item._id}`,{
       method: 'PUT',

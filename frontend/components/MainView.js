@@ -20,14 +20,22 @@ export default class MainView extends React.Component {
     const endpoint = `${window.location.hostname}:8000`;
     const socket = socketIOClient(endpoint);
     socket.on("get items", data => {
-      let newAr = this.state.items;
       this.getItems();
-      newAr.push(data)
-      this.setState({ items: newAr });
     });
     socket.on('update items',data=>{
       this.getItems();
     })
+    socket.on('update status',data=>{
+      let index = this.state.items.indexOf(data);
+      let newAr = this.state.items;
+      newAr.splice(index,1);
+      this.setState({
+        items:newAr
+      })
+      this.getItems();
+    })
+
+
   }
 
   getItems(){
@@ -39,17 +47,18 @@ export default class MainView extends React.Component {
     })
       .then(res=>res.json())
       .then(data=>{
+
       this.setState({
         items:data
       })
+
     })
   }
 
 
   render(){
     let {items}=this.state;
-
-    let elements=items.length!=0 ? this.state.items.map(food => food._id ?
+    let elements=items.length!=0 && typeof items[0] == 'object'? this.state.items.map(food => food._id ?
       <Item item={food} key={food._id}>{food.name}</Item> : ''
     ): '';
 

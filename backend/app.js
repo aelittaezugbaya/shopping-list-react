@@ -55,6 +55,10 @@ io.sockets.on('connection',(socket)=>{
     io.sockets.emit('update items',data)
   })
 
+  socket.on('change status',(data)=> {
+      console.log('Updated:' + data);
+      io.sockets.emit('update status', data)
+    })
 })
 
 
