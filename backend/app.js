@@ -59,6 +59,11 @@ io.sockets.on('connection',(socket)=>{
       console.log('Updated:' + data);
       io.sockets.emit('update status', data)
     })
+
+  socket.on('login',(data)=> {
+    console.log('login:' + data);
+    io.sockets.emit('open list', data)
+  })
 })
 
 

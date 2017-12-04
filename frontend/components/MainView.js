@@ -4,14 +4,15 @@ import Item from './Item';
 import Input from'./Input';
 import Header from './Header';
 import socketIOClient from "socket.io-client";
-
+import LogInForm from './LogInForm';
 
 export default class MainView extends React.Component {
   constructor(props){
     super(props);
     this.getItems=this.getItems.bind(this);
     this.state = {
-      items:[]
+      items:[],
+      jwt:window.localStorage.accessToken
     };
   }
   componentWillMount(){
@@ -58,24 +59,21 @@ export default class MainView extends React.Component {
 
 
   render(){
-    let {items}=this.state;
+    let {items,jwt}=this.state;
     let elements=items.length!=0 && typeof items[0] == 'object'? this.state.items.map(food => food._id ?
       <Item item={food} key={food._id}>{food.name}</Item> : ''
     ): '';
 
     return(
-     <div className="container">
-       <Header/>
-       <ListGroup>
-          <Input/>
-         {items.length==0 ?
-           <Alert bsStyle="info">
-             <strong>Shopping list is empty!</strong> Add something .
-           </Alert>:
-           elements}
-       </ListGroup>
-
-     </div>
+     <ListGroup>
+       <Input/>
+       {items.length==0 ?
+         <Alert bsStyle="info">
+           <strong>Shopping list is empty!</strong> Add something .
+         </Alert>:
+       elements
+       }
+     </ListGroup>
     );
   }
 }
