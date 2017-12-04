@@ -29,6 +29,7 @@ export default class MainView extends React.Component {
       let index = this.state.items.indexOf(data);
       let newAr = this.state.items;
       newAr.splice(index,1);
+      console.log("status")
       this.setState({
         items:newAr
       })
