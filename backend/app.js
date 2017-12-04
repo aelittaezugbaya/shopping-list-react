@@ -64,6 +64,11 @@ io.sockets.on('connection',(socket)=>{
     console.log('login:' + data);
     io.sockets.emit('open list', data)
   })
+
+  socket.on('logout', (data)=>{
+    console.log('logout')
+    io.sockets.emit('close list')
+  })
 })
 
 

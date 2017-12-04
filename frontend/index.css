@@ -15,3 +15,8 @@
 .red{
     color:#d95450
 }
+.logout{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}

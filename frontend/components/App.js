@@ -19,6 +19,11 @@ export default class App extends React.Component {
         jwt:data
       })
     });
+    socket.on('close list',data=>{
+      this.setState({
+        jwt:window.localStorage.accessToken
+      })
+    })
   }
 
   render (){

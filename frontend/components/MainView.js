@@ -5,6 +5,7 @@ import Input from'./Input';
 import Header from './Header';
 import socketIOClient from "socket.io-client";
 import LogInForm from './LogInForm';
+import Logout from './Logout'
 
 export default class MainView extends React.Component {
   constructor(props){
@@ -65,15 +66,18 @@ export default class MainView extends React.Component {
     ): '';
 
     return(
-     <ListGroup>
-       <Input/>
-       {items.length==0 ?
-         <Alert bsStyle="info">
-           <strong>Shopping list is empty!</strong> Add something .
-         </Alert>:
-       elements
-       }
-     </ListGroup>
+      <div>
+
+       <ListGroup>
+         <Input/>
+         {items.length==0 ?
+           <Alert bsStyle="info">
+             <strong>Shopping list is empty!</strong> Add something .
+           </Alert>:
+         elements
+         }
+       </ListGroup>
+      </div>
     );
   }
 }
