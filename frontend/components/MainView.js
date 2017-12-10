@@ -67,7 +67,7 @@ export default class MainView extends React.Component {
 
     return(
       <div>
-
+        <Logout/>
        <ListGroup>
          <Input/>
          {items.length==0 ?

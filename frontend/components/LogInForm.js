@@ -35,7 +35,7 @@ export default class LogInForm extends React.Component{
   render(){
     return(
       <form onSubmit={this.logIn}>
-        <h4>You need to log in to get access to shopping list</h4>
+        <h4>Please login into the system</h4>
         <div className="form-group">
           <label htmlFor="username">Username</label>
           <input ref ={ref=>this.username=ref} type="text" className="form-control" id="username" aria-describedby="emailHelp" placeholder="Enter email"/>
