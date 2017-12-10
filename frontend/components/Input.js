@@ -32,7 +32,7 @@ export default class Input extends React.Component{
       },
       body:name
     }).then(res=>res);
-    const socket = socketIOClient(endpoint);
+    const socket = socketIOClient();
     socket.emit("new item", this.input.value );
     this.form.reset()
   }
