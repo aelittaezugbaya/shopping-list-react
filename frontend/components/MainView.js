@@ -6,6 +6,7 @@ import Header from './Header';
 import socketIOClient from "socket.io-client";
 import LogInForm from './LogInForm';
 import Logout from './Logout'
+import {endpoint} from '../common/constants';
 
 export default class MainView extends React.Component {
   constructor(props){
@@ -19,7 +20,6 @@ export default class MainView extends React.Component {
   componentWillMount(){
     console.log(window.location.hostname)
     this.getItems();
-    const endpoint = `/ws`;
     const socket = socketIOClient(endpoint);
     socket.on("get items", data => {
       this.getItems();

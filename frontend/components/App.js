@@ -3,6 +3,7 @@ import MainView from './MainView';
 import LogInForm from './LogInForm';
 import Header from './Header';
 import socketIOClient from "socket.io-client";
+import {endpoint} from '../common/constants';
 
 export default class App extends React.Component {
   constructor(props){
@@ -12,7 +13,6 @@ export default class App extends React.Component {
     }
   }
   componentWillMount(){
-    const endpoint = `/ws`;
     const socket = socketIOClient(endpoint);
     socket.on("open list", data => {
       this.setState({

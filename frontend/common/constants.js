@@ -1,3 +1,5 @@
-/**
- * Created by aelittaezugbaa on 10/12/2017.
- */
+const endpoint = `${window.location.host}`;
+
+export {
+  endpoint
+};

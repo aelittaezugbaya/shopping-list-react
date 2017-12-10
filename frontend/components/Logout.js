@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button} from 'react-bootstrap';
 import socketIOClient from "socket.io-client";
+import {endpoint} from '../common/constants';
 
 export default class Logout extends React.Component{
   constructor(props){
@@ -9,7 +10,6 @@ export default class Logout extends React.Component{
   }
   onClick(){
     delete window.localStorage.accessToken;
-    const endpoint = '/ws';
     const socket = socketIOClient(endpoint);
     socket.emit("logout", window.localStorage.accessToken)
   }

@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import {ListGroupItem ,FormGroup,FormControl,Button} from 'react-bootstrap';
+import {endpoint} from '../common/constants';
 
 import socketIOClient from "socket.io-client";
 
@@ -31,7 +32,6 @@ export default class Input extends React.Component{
       },
       body:name
     }).then(res=>res);
-    const endpoint = `/ws`;
     const socket = socketIOClient(endpoint);
     socket.emit("new item", this.input.value );
     this.form.reset()

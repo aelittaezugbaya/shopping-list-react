@@ -4,6 +4,7 @@
 import React from 'react';
 import {ListGroupItem,Button,ButtonGroup} from 'react-bootstrap';
 import socketIOClient from "socket.io-client";
+import {endpoint} from '../common/constants';
 
 export default class Item extends React.Component{
   constructor(props){
@@ -43,7 +44,6 @@ export default class Item extends React.Component{
   }
 
   onClickDelete(){
-    const endpoint = `/ws`;
     const socket = socketIOClient(endpoint);
     socket.emit('delete item',this.props.item.name);
     window.fetch(`/api/delete/${this.props.item._id}`,{
