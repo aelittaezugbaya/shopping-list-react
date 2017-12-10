@@ -19,7 +19,7 @@ export default class MainView extends React.Component {
   componentWillMount(){
     console.log(window.location.hostname)
     this.getItems();
-    const endpoint = `${window.location.hostname}:8000`;
+    const endpoint = `/ws`;
     const socket = socketIOClient(endpoint);
     socket.on("get items", data => {
       this.getItems();

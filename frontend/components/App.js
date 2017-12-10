@@ -12,7 +12,7 @@ export default class App extends React.Component {
     }
   }
   componentWillMount(){
-    const endpoint = `${window.location.hostname}:8000`;
+    const endpoint = `/ws`;
     const socket = socketIOClient(endpoint);
     socket.on("open list", data => {
       this.setState({

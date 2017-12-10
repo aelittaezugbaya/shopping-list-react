@@ -9,7 +9,7 @@ export default class Logout extends React.Component{
   }
   onClick(){
     delete window.localStorage.accessToken;
-    const endpoint = `${window.location.hostname}:8000`;
+    const endpoint = '/ws';
     const socket = socketIOClient(endpoint);
     socket.emit("logout", window.localStorage.accessToken)
   }

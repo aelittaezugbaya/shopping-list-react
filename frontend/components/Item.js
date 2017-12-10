@@ -23,7 +23,7 @@ export default class Item extends React.Component{
     })
   }
   onClickDone(ev){
-    const endpoint = `${window.location.hostname}:8000`;
+    const endpoint = `'/ws'`;
     const socket = socketIOClient(endpoint);
     socket.emit('change status',this.props.item);
 
@@ -43,7 +43,7 @@ export default class Item extends React.Component{
   }
 
   onClickDelete(){
-    const endpoint = `${window.location.hostname}:8000`;
+    const endpoint = `/ws`;
     const socket = socketIOClient(endpoint);
     socket.emit('delete item',this.props.item.name);
     window.fetch(`/api/delete/${this.props.item._id}`,{

@@ -23,7 +23,7 @@ export default class LogInForm extends React.Component{
         console.log(data)
         const user = jwt_decode(data);
         window.localStorage.accessToken = data;
-        const endpoint = `${window.location.hostname}:8000`;
+        const endpoint = `/ws`;
         const socket = socketIOClient(endpoint);
         socket.emit("login", window.localStorage.accessToken)
       })
