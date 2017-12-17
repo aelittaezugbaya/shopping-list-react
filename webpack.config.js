@@ -51,7 +51,8 @@ const developmentConfig = () => {
       host: process.env.HOST, // Defaults to `localhost`
       port: process.env.PORT, // Defaults to 8080
       proxy: {
-        '/api/**': "http://localhost:3000/"
+        '/api/**': "http://localhost:3000/",
+        // '/socket.io/**':  "ws://localhost:8000/",
       }
     },
   };

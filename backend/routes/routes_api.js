@@ -4,6 +4,7 @@ const Mongoose = require('mongoose');
 const Models = require('../mongooseModel')
 const crypto = require('crypto');
 const jwt= require('jsonwebtoken');
+const io = require('../app.js').io;
 
 router.post('/register',(req,res)=>{
 
@@ -106,23 +107,14 @@ router.post('/items',function(req,res,next){
 
 // changed status of done int the item
 router.put('/items/:id', function(req,res,next){
-  Models.Items.find({_id:req.params.id},(err,item)=>{
-    if(err)
-      return ("Error finding Item with ID " + req.params.id + ".");
-    console.log(item)
-    return item;
-  }).then((item)=> {
-    Models.Items.update({
-        _id: req.params.id
-      },
-      {
-        done: !(item[0].done),
-      },
-      (err, item)=>{
-        if (err) throw err;
-        res.send(item);
-      })
-  })
+  Models.Items.find({_id:req.params.id})
+    .then((items) => {
+      return Models.Items.update({ _id: req.params.id }, { done: !items[0].done })
+    })
+    .then(item => {
+      // io.sockets.emit('update items', item, () => console.log('kek'))
+      res.send(item);
+    })
 });
 // delete items from the list
 router.delete('/delete/:id', function(req,res,next){

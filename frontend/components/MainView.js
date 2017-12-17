@@ -20,11 +20,12 @@ export default class MainView extends React.Component {
   componentWillMount(){
     console.log(window.location.hostname)
     this.getItems();
-    const socket = socketIOClient();
+    const socket = socketIOClient(endpoint);
     socket.on("get items", data => {
       this.getItems();
     });
     socket.on('update items',data=>{
+      console.log('kek')
       this.getItems();
     })
     socket.on('update status',data=>{

@@ -13,7 +13,7 @@ export default class App extends React.Component {
     }
   }
   componentWillMount(){
-    const socket = socketIOClient();
+    const socket = socketIOClient(endpoint);
     socket.on("open list", data => {
       this.setState({
         jwt:data
