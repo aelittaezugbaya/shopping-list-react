@@ -1,7 +1,6 @@
 import React from 'react';
 import jwt_decode from 'jwt-decode';
-import socketIOClient from "socket.io-client";
-import {endpoint} from '../common/constants';
+import { socket } from '../common/constants';
 
 export default class LogInForm extends React.Component{
   constructor(props){
@@ -26,7 +25,6 @@ export default class LogInForm extends React.Component{
         console.log(data)
         const user = jwt_decode(data);
         window.localStorage.accessToken = data;
-        const socket = socketIOClient(endpoint);
         socket.emit("login", window.localStorage.accessToken)
       })
       .catch(err => console.log(err));

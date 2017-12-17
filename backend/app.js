@@ -10,13 +10,11 @@ const Models = require('./mongooseModel')
 
 const index = require('./routes/routes_index');
 const api = require('./routes/routes_api');
+const websockets = require('./sockets');
 
 const app = express();
-const http = require('http');
-const socketIo = require("socket.io");
-let connections=[];
 
-
+websockets(app);
 mongoose.connect('mongodb://localhost/shoppingList');
 
 // uncomment after placing your favicon in /public
@@ -30,47 +28,6 @@ console.log(__dirname)
 
 app.use('/', index);
 app.use('/api', api);
-
-const server = http.createServer(app);
-const io = socketIo.listen(server);
-
-const port = 8000;
-server.listen(port);
-io.sockets.on('connection',(socket)=>{
-  connections.push(socket);
-  console.log('Connected: %s sockets connected', connections.length);
-
-  socket.on('disconnect',(data)=>{
-    connections.splice(connections.indexOf(socket),1);
-    console.log('Disconnected: %s sockets connected', connections.length)
-  })
-
-  socket.on('new item',data=>{
-    console.log('saved: '+data);
-    io.sockets.emit('get items',data);
-  })
-
-  socket.on('delete item',(data)=>{
-    console.log('Deleted:'+data)
-    io.sockets.emit('update items',data)
-  })
-
-  socket.on('change status',(data)=> {
-      console.log('Updated:' + data);
-      io.sockets.emit('update status', data)
-    })
-
-  socket.on('login',(data)=> {
-    console.log('login:' + data);
-    io.sockets.emit('open list', data)
-  })
-
-  socket.on('logout', (data)=>{
-    console.log('logout')
-    io.sockets.emit('close list')
-  })
-})
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -91,4 +48,3 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-module.exports.io = io;

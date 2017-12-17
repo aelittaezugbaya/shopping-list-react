@@ -1,12 +1,13 @@
 import React from 'react';
 import {ListGroup,Alert} from 'react-bootstrap';
+
 import Item from './Item';
 import Input from'./Input';
 import Header from './Header';
-import socketIOClient from "socket.io-client";
 import LogInForm from './LogInForm';
-import Logout from './Logout'
-import {endpoint} from '../common/constants';
+import Logout from './Logout';
+
+import { socket } from '../common/constants';
 
 export default class MainView extends React.Component {
   constructor(props){
@@ -18,25 +19,20 @@ export default class MainView extends React.Component {
     };
   }
   componentWillMount(){
-    console.log(window.location.hostname)
+
     this.getItems();
-    const socket = socketIOClient(endpoint);
     socket.on("get items", data => {
       this.getItems();
     });
-    socket.on('update items',data=>{
-      console.log('kek')
-      this.getItems();
-    })
-    socket.on('update status',data=>{
-      let index = this.state.items.indexOf(data);
-      let newAr = this.state.items;
-      newAr.splice(index,1);
-      console.log("status")
+  
+    socket.on('update item', data => {
+      const items = this.state.items.map(
+        item => item._id == data._id ? data : item
+      );
+
       this.setState({
-        items:newAr
+        items: items,
       })
-      this.getItems();
     })
 
 
@@ -55,7 +51,6 @@ export default class MainView extends React.Component {
       this.setState({
         items:data
       })
-
     })
   }
 

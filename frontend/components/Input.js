@@ -3,37 +3,15 @@
  */
 import React from 'react';
 import {ListGroupItem ,FormGroup,FormControl,Button} from 'react-bootstrap';
-import {endpoint} from '../common/constants';
-
-import socketIOClient from "socket.io-client";
+import { socket } from '../common/constants';
 
 export default class Input extends React.Component{
-
-  constructor(props){
-    super(props);
-    this.onSubmit=this.onSubmit.bind(this);
-    this.state = {
-      response: false,
-      items:[]
-    };
-  }
-  componentDidMount(){
-
-
-  }
-  onSubmit(ev){
+  onSubmit = (ev) => {
     ev.preventDefault();
-    // ev.preventDefault();
-    let name = 'name='+encodeURIComponent(this.input.value)
-    window.fetch('/api/items/',{
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      body:name
-    }).then(res=>res);
-    const socket = socketIOClient(endpoint);
-    socket.emit("new item", this.input.value );
+    
+    socket.emit("new item", {
+      name: this.input.value,
+    });
     this.form.reset()
   }
 
