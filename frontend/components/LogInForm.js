@@ -41,7 +41,6 @@ export default class LogInForm extends React.Component{
       body: data
     }).then(data => data.text())
       .then(data => {
-        console.log(data)
         const user = jwt_decode(data);
         window.localStorage.accessToken = data;
         this.setState({

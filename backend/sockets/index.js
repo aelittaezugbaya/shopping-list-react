@@ -57,16 +57,7 @@ function websockets(app) {
 
       io.sockets.emit('update status', data)
     })
-    
-    socket.on('login',(data)=> {
-      console.log('login:' + data);
-      io.sockets.emit('open list', data)
-    })
-    
-    socket.on('logout', (data)=>{
-      console.log('logout')
-      io.sockets.emit('close list')
-    })
+
   });
 }
 
