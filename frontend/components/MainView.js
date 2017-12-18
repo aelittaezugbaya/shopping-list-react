@@ -5,7 +5,7 @@ import Item from './Item';
 import Input from'./Input';
 import Header from './Header';
 import LogInForm from './LogInForm';
-import Logout from './Logout';
+
 
 import { socket } from '../common/constants';
 
@@ -63,7 +63,7 @@ export default class MainView extends React.Component {
 
     return(
       <div>
-        <Logout/>
+
        <ListGroup>
          <Input/>
          {items.length==0 ?

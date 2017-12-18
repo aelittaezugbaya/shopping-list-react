@@ -1,12 +1,6 @@
 import React from 'react';
-import jwt_decode from 'jwt-decode';
 
-import LogInForm from './LogInForm';
-import Header from './Header';
-
-
-
-export default class App extends React.Component {
+export default class Switch extends React.Component{
   constructor(props){
     super(props);
     if( window.localStorage.accessToken) {
@@ -23,14 +17,7 @@ export default class App extends React.Component {
       jwt: window.localStorage.accessToken
     }
   }
+  render(){
 
-
-  render (){
-    return(
-      <div className="container">
-        <Header/>
-         <LogInForm/>
-      </div>
-    );
   }
 }

@@ -2,7 +2,6 @@
  * Created by aelittaezugbaa on 20/11/2017.
  */
 import React from 'react';
-import Logout from'./Logout'
 
 export default class Header extends React.Component{
   render() {
