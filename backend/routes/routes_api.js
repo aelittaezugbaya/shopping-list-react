@@ -7,14 +7,13 @@ const jwt= require('jsonwebtoken');
 const io = require('../app.js').io;
 
 router.post('/register',(req,res)=>{
-
   let salt = crypto.randomBytes(16).toString('hex');
 
   let hash = crypto.pbkdf2Sync(req.body.password, salt, 1000, 64, 'sha1').toString('hex');
   console.log(req.body.password)
   let newUser = Models.User({
-    username:req.body.username,
-    role:req.body.role,
+    username: req.body.username,
+    role: req.body.role,
     hash: hash,
     salt: salt,
   })
@@ -36,7 +35,6 @@ router.post('/login',(req,res)=>{
       return resolve(user);
     })
   }).then(user=>{
-    console.log(req.body)
     let hash = crypto.pbkdf2Sync(req.body.password, user[0].salt, 1000, 64, 'sha1').toString('hex');
     if(hash !== user[0].hash) {
       console.log("Authentication error");
@@ -50,7 +48,7 @@ router.post('/login',(req,res)=>{
 
     let expiry = new Date();
 
-    expiry.setMinutes(expiry.getMinutes() + 30);
+    expiry.setMinutes(expiry.getMinutes() + 10080); // 7 days
 
     let jwttoken = jwt.sign({
       _id: user[0]._id,
@@ -60,9 +58,12 @@ router.post('/login',(req,res)=>{
     }, 'secret');
 
     res.send(jwttoken);
-  })
+  }).catch(() => {
+    res.status(401);
+    res.send()
+  });
 
-})
+});
 
 //Get list of all items in the list
 router.get('/items',function(req, res, next){

@@ -1,5 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 const PATHS = {
   frontend: path.join(__dirname, 'frontend'),
@@ -17,10 +19,23 @@ const commonConfig= {
     publicPath: '/'
   },
   plugins: [
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(PATHS.frontend, 'static_assets'),
+        to: path.join(PATHS.build, '/static'),
+      },
+    ]),
     new HtmlWebpackPlugin({
       title: 'Shopping List',
       template: path.join(PATHS.frontend, 'template.html')
     }),
+    new WorkboxPlugin.GenerateSW({
+      // these options encourage the ServiceWorkers to get in there fast 
+      // and not allow any straggling "old" SWs to hang around
+      swDest: 'sw.js',
+      clientsClaim: true,
+      skipWaiting: true,
+    })
   ],
   module: {
     rules: [
@@ -34,7 +49,7 @@ const commonConfig= {
         use: "babel-loader",
       },
       {
-        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        test: /\.(eot|svg|ttf|woff|woff2|)$/,
         loader: 'file-loader',
       },
     ],
