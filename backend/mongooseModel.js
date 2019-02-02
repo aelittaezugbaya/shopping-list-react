@@ -1,8 +1,8 @@
-const Mongoose = require('mongoose');
+const Mongoose = require("mongoose");
 
-let itemSchema= new Mongoose.Schema({
-  name:String,
-  done:Boolean
+let itemSchema = new Mongoose.Schema({
+  name: String,
+  done: Boolean
 });
 
 let userSchema = new Mongoose.Schema({
@@ -11,12 +11,11 @@ let userSchema = new Mongoose.Schema({
     unique: true,
     required: true
   },
-  role:String,
+  role: String,
   hash: String,
-  salt: String,
+  salt: String
+});
 
-})
+module.exports.Items = Mongoose.model("Items", itemSchema, "Items");
 
-module.exports.Items = Mongoose.model('Items', itemSchema, 'Items');
-
-module.exports.User = Mongoose.model('Users',userSchema,'Users');
+module.exports.User = Mongoose.model("Users", userSchema, "Users");

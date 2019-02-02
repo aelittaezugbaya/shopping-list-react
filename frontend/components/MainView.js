@@ -1,78 +1,92 @@
-import React from 'react';
-import {ListGroup,Alert} from 'react-bootstrap';
+import React from "react";
+import { ListGroup, Alert, ListGroupItem, Button } from "react-bootstrap";
 
-import Item from './Item';
-import Input from'./Input';
-import Header from './Header';
-import LogInForm from './LogInForm';
+import Item from "./Item";
+import Input from "./Input";
+import Header from "./Header";
+import LogInForm from "./LogInForm";
 
-
-import { socket } from '../common/constants';
+import { socket } from "../common/constants";
 
 export default class MainView extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.getItems=this.getItems.bind(this);
+    this.getItems = this.getItems.bind(this);
     this.state = {
-      items:[],
-      jwt:window.localStorage.accessToken
+      items: [],
+      jwt: window.localStorage.accessToken
     };
   }
-  componentWillMount(){
-
+  componentWillMount() {
     this.getItems();
     socket.on("get items", data => {
       this.getItems();
     });
-  
-    socket.on('update item', data => {
-      const items = this.state.items.map(
-        item => item._id == data._id ? data : item
+
+    socket.on("update item", data => {
+      const items = this.state.items.map(item =>
+        item._id == data._id ? data : item
       );
 
       this.setState({
-        items: items,
-      })
-    })
-
-
+        items: items
+      });
+    });
   }
 
-  getItems(){
-    window.fetch('/api/items/',{
-      method: 'GET',
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-    })
-      .then(res=>res.json())
-      .then(data=>{
-
-      this.setState({
-        items:data
+  getItems() {
+    window
+      .fetch("/api/items/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
       })
-    })
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          items: data
+        });
+      });
   }
 
+  clickDeleteAll() {
+    socket.emit("delete all");
+  }
+  render() {
+    let { items, jwt } = this.state;
+    let elements =
+      items.length != 0 && typeof items[0] == "object"
+        ? this.state.items.map(food =>
+            food._id ? (
+              <Item item={food} key={food._id}>
+                {food.name}
+              </Item>
+            ) : (
+              ""
+            )
+          )
+        : "";
 
-  render(){
-    let {items,jwt}=this.state;
-    let elements=items.length!=0 && typeof items[0] == 'object'? this.state.items.map(food => food._id ?
-      <Item item={food} key={food._id}>{food.name}</Item> : ''
-    ): '';
-
-    return(
+    return (
       <div>
-
-       <ListGroup>
-         <Input/>
-         {items.length==0 ?
-           <Alert bsStyle="info">
-             <strong>Shopping list is empty!</strong> Add something .
-           </Alert>:
-         elements
-         }
-       </ListGroup>
+        <ListGroup>
+          <Input />
+          {items.length == 0 ? (
+            <Alert bsStyle="info">
+              <strong>Shopping list is empty!</strong> Add something .
+            </Alert>
+          ) : (
+            <React.Fragment>
+              {elements}
+              <ListGroupItem key="delete" className="delete-row">
+                <Button bsStyle="danger" onClick={this.clickDeleteAll}>
+                  Delete all
+                </Button>
+              </ListGroupItem>
+            </React.Fragment>
+          )}
+        </ListGroup>
       </div>
     );
   }
