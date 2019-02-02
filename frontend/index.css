@@ -1,22 +1,39 @@
-.headerC{
-    color: whitesmoke;
+.headerC {
+  color: whitesmoke;
 }
 
 .header-center {
-    justify-content: center;
+  justify-content: center;
 }
 
 .header-center ::before {
-    background: none;
+  background: none;
 }
-.right{
-    text-align: right;
+.right {
+  text-align: right;
 }
-.red{
-    color:#d95450
+.red {
+  color: #d95450;
 }
-.logout{
-    position: absolute;
-    top: 20px;
-    right: 20px;
+.logout {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.line-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main {
+  flex: 1;
+  margin-right: 16px;
+  margin-bottom: 0;
+}
+
+.delete-row {
+  display: flex;
+  justify-content: center;
 }
